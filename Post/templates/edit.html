@@ -1,9 +1,16 @@
+{% extends 'base.html' %}
 
+{% load bootstrap4 %}
 
-<form method = "post" enctype = "multipart/form-data"> 
+{% block body %}
+ <div class='blog_form'>
+  <form method = "post" enctype = "multipart/form-data"> 
     {% csrf_token %}
- 
- 
-     {{form}}
-   <button type="submit" class ="btn btn-primary "> edit yor post </button>
- </form>
+    {{ form.media }}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">save post</button>
+    {% endbuttons %}
+  </form>
+</div>
+ {% endblock %}

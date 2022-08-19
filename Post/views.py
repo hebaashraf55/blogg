@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from . models import Post
 from . forms import PostForm
-
+from django.contrib import messages
 # Create your views here.
 
 def all_posts(request):
-        all_posts = Post.objects.all()
+        all_posts = Post.objects.filter(active=True)
         
         context = {
                 
@@ -16,9 +15,9 @@ def all_posts(request):
         
         
 def post(request, id):
-        post = Post.objects.get(id=id)
+        #post = Post.objects.get(id=id)
         
-        #post = get_object_or_404(Post, id=id),
+        post = get_object_or_404(Post, id=id)
         
         context = {
                 
@@ -35,6 +34,8 @@ def create_post(request):
          new_form = form.save(commit=False)
          new_form.user = request.user
          new_form.save()
+         messages.success(request, 'Post created successfully')
+         return redirect('/')
           
     else:
         form = PostForm()
@@ -47,15 +48,16 @@ def create_post(request):
 
 
 def edit_post(request, id):
-    post = get_object_or_404(Post, id=id),
+    post = get_object_or_404(Post, id=id)
     if request.method == 'POST':
          form = PostForm(request.POST, instance=post)
          if form.is_valid():
              new_form = form.save(commit=False)
              new_form.user = request.user
              new_form.save()
+             return redirect('/')
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=post )
         
     context = {
                 
