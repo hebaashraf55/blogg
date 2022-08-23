@@ -8,9 +8,9 @@
     {% csrf_token %}
     {{ form.media }}
     {% bootstrap_form form %}
-    {% buttons %}
+      {% buttons %}
         <button type="submit" class="btn btn-primary">save post</button>
-    {% endbuttons %}
+      {% endbuttons %}
   </form>
 </div>
  {% endblock %}

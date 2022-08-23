@@ -5,8 +5,10 @@
 {% block body %}
 
 <form method = "post" enctype = "multipart/form-data"> 
+
   {% csrf_token %}
-  {{ form.media }}
+    {{ form.media }}
+    
   {% bootstrap_form form %}
   {% buttons %}
       <button type="submit" class="btn btn-primary">save post</button>
